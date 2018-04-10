@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.support.annotation.Nullable;
 
 public class MyResultIntentService extends IntentService {
 
@@ -26,5 +27,10 @@ public class MyResultIntentService extends IntentService {
             // Here we call send passing a resultCode and the bundle of extras
             rec.send(Activity.RESULT_OK, bundle);
         }
+    }
+
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        return START_STICKY;
     }
 }

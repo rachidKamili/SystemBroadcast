@@ -14,7 +14,7 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Start Service Result Receiver"
+        android:text="Start Service Result Receiver to the Second App"
         android:onClick="onServiceResultReceiver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

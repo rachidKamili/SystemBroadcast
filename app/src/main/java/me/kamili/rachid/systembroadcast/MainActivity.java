@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -66,14 +67,16 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(Intent.ACTION_HEADSET_PLUG);
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        registerReceiver(mySystemReceiver, intentFilter, "CUSTOM_PERMISSION",null);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mySystemReceiver, intentFilter);
+        //registerReceiver(mySystemReceiver, intentFilter, "CUSTOM_PERMISSION",null);
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(mySystemReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mySystemReceiver);
+        ///unregisterReceiver(mySystemReceiver);
     }
 
     public void onSendOrderedBroadcast(View view) {

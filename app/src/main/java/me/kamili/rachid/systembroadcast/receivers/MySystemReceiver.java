@@ -15,6 +15,11 @@ public class MySystemReceiver extends BroadcastReceiver {
 
         String text;
         switch (intent.getAction()) {
+            case "ANOTHER_APP_ACTION":
+                text = "This is the main app.";
+                Log.d(TAG, "onReceive: " + text);
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+                break;
             case Intent.ACTION_AIRPLANE_MODE_CHANGED:
                 boolean status = intent.getBooleanExtra("state", false);
                 text = "Airplane mode :" + status;

@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //Register the broadcast to receive multiple system broadcasts
         mySystemReceiver = new MySystemReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(Intent.ACTION_HEADSET_PLUG);
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        intentFilter.addAction("ANOTHER_APP_ACTION");
         registerReceiver(mySystemReceiver, intentFilter);
 
     }
@@ -73,5 +75,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(mySystemReceiver);
+    }
+
+    public void onSendOrderedBroadcast(View view) {
+        Intent intent = new Intent();
+        intent.setAction("ANOTHER_APP_ACTION");
+        intent.putExtra("data","Notice me senpai!");
+        sendOrderedBroadcast(intent,null);
     }
 }

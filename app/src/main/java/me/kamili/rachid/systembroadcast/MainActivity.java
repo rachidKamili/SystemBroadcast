@@ -1,21 +1,58 @@
 package me.kamili.rachid.systembroadcast;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import me.kamili.rachid.systembroadcast.receivers.MyResultReceiver;
 import me.kamili.rachid.systembroadcast.receivers.MySystemReceiver;
+import me.kamili.rachid.systembroadcast.services.MyResultIntentService;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MyResultReceiver myResultReceiver;
     private MySystemReceiver mySystemReceiver;
+    private EditText etMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        etMain = findViewById(R.id.etMain);
+
+        setupServiceResultReceiver();
+
     }
+
+    private void setupServiceResultReceiver() {
+        myResultReceiver = new MyResultReceiver(new Handler());
+        // This is where we specify what happens when data is received from the service
+        myResultReceiver.setReceiver(new MyResultReceiver.ResultReceiverCallBack() {
+            @Override
+            public void onSuccess(int resultCode, Bundle resultData) {
+                if (resultCode == RESULT_OK) {
+                    String resultValue = resultData.getString("resultValue");
+                    Toast.makeText(MainActivity.this, resultValue, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    // Starts the IntentService and sending resultReceiver
+    public void onServiceResultReceiver(View v) {
+        Intent i = new Intent(this, MyResultIntentService.class);
+        i.putExtra("data", etMain.getText().toString());
+        i.putExtra("receiver", myResultReceiver);
+        startService(i);
+    }
+
 
     @Override
     protected void onStart() {

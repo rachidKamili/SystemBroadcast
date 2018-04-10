@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(Intent.ACTION_HEADSET_PLUG);
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        intentFilter.addAction("ANOTHER_APP_ACTION");
         registerReceiver(mySystemReceiver, intentFilter);
 
     }
@@ -80,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
     public void onSendOrderedBroadcast(View view) {
         Intent intent = new Intent();
         intent.setAction("ANOTHER_APP_ACTION");
-        intent.putExtra("data","Notice me senpai!");
+        intent.putExtra("data","DATA Sent!");
+        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         sendOrderedBroadcast(intent,null);
     }
 }

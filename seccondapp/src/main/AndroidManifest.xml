@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.kamili.rachid.systembroadcast">
-
-    <permission android:name="CUSTOM_PERMISSION"/>
-    <uses-permission android:name="CUSTOM_PERMISSION"/>
-
+    package="me.kamili.rachid.seccondapp">
 
     <application
         android:allowBackup="true"
@@ -22,13 +18,21 @@
         </activity>
 
         <receiver
-            android:name=".receivers.MySystemReceiver"
+            android:name=".MyReceiver"
             android:enabled="true"
-            android:exported="true" />
-
-        <service
-            android:name=".services.MyResultIntentService"
-            android:exported="false"/>
+            android:exported="true">
+            <intent-filter android:priority="2">
+                <action android:name="ANOTHER_APP_ACTION" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".MySecondReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1">
+                <action android:name="ANOTHER_APP_ACTION" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

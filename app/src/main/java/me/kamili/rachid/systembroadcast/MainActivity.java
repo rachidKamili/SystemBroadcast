@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(Intent.ACTION_HEADSET_PLUG);
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        registerReceiver(mySystemReceiver, intentFilter);
+        registerReceiver(mySystemReceiver, intentFilter, "CUSTOM_PERMISSION",null);
 
     }
 
